@@ -7,8 +7,11 @@ namespace Category
     {
         None            = 0,
         SoundEffect     = 1 << 0,
-        ParticleSystem  = 1 << 1
-        //Player  = 1 << 2,
+        ParticleSystem  = 1 << 1,
+        Player          = 1 << 2,
+        Crate           = 1 << 3,
+        Wall            = 1 << 4,
+        PointCounter    = 1 << 5,
         // ...
         //MixedCategory        = Category1 | Category2,
 

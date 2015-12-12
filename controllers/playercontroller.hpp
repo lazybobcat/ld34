@@ -16,8 +16,6 @@ public:
     enum Action
     {
         // Player Actions here...
-        MoveLeft,
-        MoveRight,
         MoveUp,
         MoveDown,
         // Fire ? LaunchMissile ? Jump ? ...
@@ -40,6 +38,7 @@ private:
 private:
     std::map<sf::Keyboard::Key, Action>		mKeyBinding;
     std::map<Action, Command>				mActionBinding;
+    Command                                 mGoStraightCommand;
 };
 
 #endif // PLAYERCONTROLLER_H

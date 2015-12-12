@@ -67,7 +67,7 @@ bool TitleState::update(sf::Time dt)
     if(mTextEffectTime.asSeconds() > titleStateDuration)
     {
         requestStackPop();
-        //requestStackPush(States::Menu);
+        requestStackPush(States::Game);
     }
 
     return true;
@@ -75,5 +75,11 @@ bool TitleState::update(sf::Time dt)
 
 bool TitleState::handleEvent(const sf::Event& event)
 {
-    return true;
+    if(event.type == sf::Event::KeyPressed)
+    {
+        requestStackPop();
+        requestStackPush(States::Game);
+    }
+
+    return false;
 }

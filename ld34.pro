@@ -44,7 +44,11 @@ SOURCES += main.cpp \
     utils.inl \
     world.cpp \
     resources/posteffect.cpp \
-    resources/bloomeffect.cpp
+    resources/bloomeffect.cpp \
+    states/gamestate.cpp \
+    entities/player.cpp \
+    entities/wall.cpp \
+    entities/crate.cpp
 
 OTHER_FILES +=
 
@@ -84,7 +88,11 @@ HEADERS += \
     entities/emitternode.hpp \
     controllers/playercontroller.hpp \
     resources/posteffect.hpp \
-    resources/bloomeffect.hpp
+    resources/bloomeffect.hpp \
+    states/gamestate.hpp \
+    entities/player.hpp \
+    entities/wall.hpp \
+    entities/crate.hpp
 
 include(deployment.pri)
 qtcAddDeployment()

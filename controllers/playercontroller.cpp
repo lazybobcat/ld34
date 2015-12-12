@@ -1,13 +1,15 @@
 #include <controllers/playercontroller.hpp>
 #include <events/commandqueue.hpp>
+#include <entities/player.hpp>
 
 PlayerController::PlayerController()
 {
     // Default keybindings
-    mKeyBinding[sf::Keyboard::Left] = MoveLeft;
-    mKeyBinding[sf::Keyboard::Right] = MoveRight;
     mKeyBinding[sf::Keyboard::Up] = MoveUp;
+    mKeyBinding[sf::Keyboard::Z] = MoveUp;
+    mKeyBinding[sf::Keyboard::W] = MoveUp;
     mKeyBinding[sf::Keyboard::Down] = MoveDown;
+    mKeyBinding[sf::Keyboard::S] = MoveDown;
 
     // initialize actions
     initializeActions();
@@ -21,6 +23,10 @@ void PlayerController::handleEvent(const sf::Event &event, CommandQueue &command
         auto found = mKeyBinding.find(event.key.code);
         if (found != mKeyBinding.end() && !isRealtimeAction(found->second))
             commands.push(mActionBinding[found->second]);
+    }
+    else if(event.type == sf::Event::KeyReleased)
+    {
+        commands.push(mGoStraightCommand);
     }
 }
 
@@ -63,18 +69,26 @@ sf::Keyboard::Key PlayerController::getAssignedKey(Action action) const
 
 void PlayerController::initializeActions()
 {
-    //mActionBinding[MoveLeft].action = derivedAction< [Player Entity Class here] >( [Command Here] );
-    //mActionBinding[MoveLeft].category = Category::None;
+    mGoStraightCommand.action = derivedAction<Player>([](Player& player, sf::Time) {
+            player.setDirection(Player::Straight);
+    });
+    mGoStraightCommand.category = Category::Player;
 
-    // ...
+    mActionBinding[MoveUp].action = derivedAction<Player>([](Player& player, sf::Time) {
+            player.setDirection(Player::Up);
+    });
+    mActionBinding[MoveUp].category = Category::Player;
+
+    mActionBinding[MoveDown].action = derivedAction<Player>([](Player& player, sf::Time) {
+            player.setDirection(Player::Down);
+    });
+    mActionBinding[MoveDown].category = Category::Player;
 }
 
 bool PlayerController::isRealtimeAction(Action action)
 {
     switch (action)
     {
-        case MoveLeft:
-        case MoveRight:
         case MoveDown:
         case MoveUp:
             return true;

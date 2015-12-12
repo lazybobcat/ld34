@@ -1,6 +1,7 @@
 #include <application.hpp>
 #include <utils.hpp>
 #include <states/titlestate.hpp>
+#include <states/gamestate.hpp>
 
 const sf::Time Application::TimePerFrame = sf::seconds(1.f/60.f);
 
@@ -98,8 +99,8 @@ void Application::render()
 void Application::registerStates()
 {
     mStateStack.registerState<TitleState>(States::Title);
-    /*mStateStack.registerState<MenuState>(States::Menu);
     mStateStack.registerState<GameState>(States::Game);
+    /*mStateStack.registerState<MenuState>(States::Menu);
     mStateStack.registerState<PauseState>(States::Pause);
     mStateStack.registerState<LoadingState>(States::Loading);
     mStateStack.registerState<GameOverState>(States::GameOver);*/

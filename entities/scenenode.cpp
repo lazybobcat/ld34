@@ -1,4 +1,22 @@
 #include <entities/scenenode.hpp>
+#include <utils.hpp>
+
+////////////////////////////////////////////////////////////
+
+float distance(const SceneNode &lhs, const SceneNode &rhs)
+{
+    return length(lhs.getWorldPosition() - rhs.getWorldPosition());
+}
+
+bool collision(const SceneNode &lhs, const SceneNode &rhs)
+{
+    if(lhs.isDestroyed() || rhs.isDestroyed())
+        return false;
+
+    return lhs.getBoundingRect().intersects(rhs.getBoundingRect());
+}
+
+////////////////////////////////////////////////////////////
 
 SceneNode::SceneNode(Category::Type category) :
     mChildren(),
@@ -94,9 +112,52 @@ unsigned int SceneNode::getCategory() const
     return mDefaultCategory;
 }
 
+void SceneNode::removeWrecks()
+{
+    auto wreckBegin = std::remove_if(
+        mChildren.begin(),
+        mChildren.end(),
+        [](Ptr& n){return n->isMarkedForRemoval();}
+    );
+
+    // ?
+    mChildren.erase(wreckBegin, mChildren.end());
+
+    for(Ptr& child : mChildren)
+    {
+        child->removeWrecks();
+    }
+}
+
+bool SceneNode::isMarkedForRemoval() const
+{
+    return isDestroyed();
+}
+
 bool SceneNode::isCollidable() const
 {
     return false;
+}
+
+void SceneNode::checkSceneCollision(SceneNode &sceneGraph, std::set<Pair> &collisionPairs)
+{
+    checkNodeCollision(sceneGraph, collisionPairs);
+
+    for(Ptr& child : sceneGraph.mChildren)
+    {
+        checkSceneCollision(*child, collisionPairs);
+    }
+}
+
+void SceneNode::checkNodeCollision(SceneNode &node, std::set<Pair> &collisionPairs)
+{
+    if(isCollidable() && this != &node && collision(*this, node) && !isDestroyed() && !node.isDestroyed()) {
+        collisionPairs.insert(std::minmax(this, &node));
+    }
+
+    for(Ptr& child : mChildren)
+        child->checkNodeCollision(node, collisionPairs);
+
 }
 
 void SceneNode::onCommand(const Command &command, sf::Time dt)
