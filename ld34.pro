@@ -42,7 +42,9 @@ SOURCES += main.cpp \
     datatables.cpp \
     utils.cpp \
     utils.inl \
-    world.cpp
+    world.cpp \
+    resources/posteffect.cpp \
+    resources/bloomeffect.cpp
 
 OTHER_FILES +=
 
@@ -80,7 +82,9 @@ HEADERS += \
     entities/particlenode.hpp \
     entities/entity.hpp \
     entities/emitternode.hpp \
-    controllers/playercontroller.hpp
+    controllers/playercontroller.hpp \
+    resources/posteffect.hpp \
+    resources/bloomeffect.hpp
 
 include(deployment.pri)
 qtcAddDeployment()

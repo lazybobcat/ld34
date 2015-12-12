@@ -55,7 +55,10 @@ namespace Shaders
 {
     enum ID
     {
-
+        BrightnessPass,
+        DownSamplePass,
+        GaussianBlurPass,
+        AddPass
     };
 }
 typedef ResourceHolder<sf::Shader, Shaders::ID> ShaderHolder;

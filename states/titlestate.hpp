@@ -2,6 +2,7 @@
 #define TITLESTATE_H
 
 #include <SFML/Graphics.hpp>
+#include <resources/bloomeffect.hpp>
 
 #include <states/state.hpp>
 
@@ -20,6 +21,10 @@ private:
     sf::Sprite          mShip;
     sf::Sprite          mTrail;
     sf::Time            mTextEffectTime;
+
+    sf::RenderTexture   mSceneTexture;
+    BloomEffect         mBloomEffect;
+
 };
 
 #endif // TITLESTATE_H

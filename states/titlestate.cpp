@@ -9,6 +9,8 @@ TitleState::TitleState(StateStack &stack, Context context) :
     mTitleOpacity(0),
     mTextEffectTime(sf::Time::Zero)
 {
+    mSceneTexture.create(context.window->getSize().x, context.window->getSize().y);
+
     mTitle.setFont(context.fonts->get(Fonts::Main));
     mTitle.setString("THRUST");
     mTitle.setCharacterSize(46);
@@ -30,10 +32,25 @@ void TitleState::draw()
 {
     sf::RenderWindow& window = *getContext().window;
 
-    window.draw(mBackground);
-    window.draw(mTrail);
-    window.draw(mShip);
-    window.draw(mTitle);
+
+
+    if(PostEffect::isSupported())
+    {
+        mSceneTexture.clear();
+        mSceneTexture.draw(mBackground);
+        mSceneTexture.draw(mTrail);
+        mSceneTexture.draw(mShip);
+        mSceneTexture.draw(mTitle);
+        mSceneTexture.display();
+        mBloomEffect.apply(mSceneTexture, window);
+    }
+    else
+    {
+        window.draw(mBackground);
+        window.draw(mTrail);
+        window.draw(mShip);
+        window.draw(mTitle);
+    }
 }
 
 bool TitleState::update(sf::Time dt)
