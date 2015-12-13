@@ -7,12 +7,11 @@ namespace States
     {
         None,
         Title,
-        Menu,
-        Settings,
         Game,
-        Loading,
         GameOver,
-        Pause
+        Pause,
+        Highscores,
+        Howto
     };
 }
 

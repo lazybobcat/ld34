@@ -20,14 +20,14 @@ public:
 
     virtual bool    isSelectable() const;
     virtual void    handleEvent(const sf::Event &event);
+    void            selectNext();
+    void            selectPrevious();
 
 private:
     virtual void    draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
     bool            hasSelection() const;
     void            select(std::size_t index);
-    void            selectNext();
-    void            selectPrevious();
 
 private:
     std::vector<Widget::Ptr>    mChildren;

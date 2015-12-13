@@ -10,6 +10,7 @@
 #include <cassert>
 
 #include <events/commandqueue.hpp>
+#include <resources/resourceidentifiers.hpp>
 
 class SceneNode : public sf::Transformable, public sf::Drawable, private sf::NonCopyable
 {
@@ -31,6 +32,8 @@ public:
     virtual bool            isDestroyed() const { return false; }
     void                    checkSceneCollision(SceneNode& sceneGraph, std::set<Pair>& collisionPairs);
     void                    checkNodeCollision(SceneNode& node, std::set<Pair>& collisionPairs);
+
+    void                    playLocalSound(CommandQueue& commands, Sounds::ID sound);
 
     sf::Transform           getWorldTransform() const;
     sf::Vector2f            getWorldPosition() const;

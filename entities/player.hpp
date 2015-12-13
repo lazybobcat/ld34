@@ -42,6 +42,7 @@ private:
     sf::Sprite      mUpSprite;
 
     EmitterNode*    mEmitter;
+    EmitterNode*    mTrailEmitter;
     SpriteNode*     mTrail;
 };
 

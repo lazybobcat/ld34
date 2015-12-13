@@ -21,6 +21,8 @@ private:
     sf::Sprite          mShip;
     sf::Sprite          mTrail;
     sf::Time            mTextEffectTime;
+    sf::Sprite          mLogo;
+    sf::Text            mLogoText;
 
     sf::RenderTexture   mSceneTexture;
     BloomEffect         mBloomEffect;

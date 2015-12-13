@@ -30,10 +30,12 @@ namespace Textures
         UiBonus,
         UiButton,
         UiHighscore,
+        UiHowto,
         UiNext,
         UiScore,
         UiScreen,
-        Wall
+        Wall,
+        Logo
     };
 }
 
@@ -45,7 +47,8 @@ namespace Fonts
 {
     enum ID
     {
-        Main
+        Main,
+        Monstruosor
     };
 }
 
@@ -81,7 +84,10 @@ namespace Sounds
 {
     enum ID
     {
-
+        BonusEnds,
+        Explosion,
+        Pickup,
+        Points
     };
 }
 typedef ResourceHolder<sf::SoundBuffer, Sounds::ID> SoundHolder;

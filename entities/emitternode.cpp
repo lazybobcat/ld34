@@ -41,7 +41,10 @@ void EmitterNode::updateCurrent(sf::Time dt, CommandQueue &commands)
 {
     if(mParticleSystem)
     {
-        // emitParticles(dt);
+        if(mType == Particle::Trail)
+        {
+            emitParticles(dt);
+        }
     }
     else
     {

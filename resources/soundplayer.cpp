@@ -17,7 +17,10 @@ SoundPlayer::SoundPlayer() :
     mSounds()
 {
     // Fill buffers with sounds
-    //mSoundBuffers.load(Sounds::MySound, "my_sound_file.ogg");
+    mSoundBuffers.load(Sounds::BonusEnds, "assets/sounds/bonus_ends.wav");
+    mSoundBuffers.load(Sounds::Explosion, "assets/sounds/explosion.wav");
+    mSoundBuffers.load(Sounds::Pickup, "assets/sounds/pickup.wav");
+    mSoundBuffers.load(Sounds::Points, "assets/sounds/points.wav");
 }
 
 void SoundPlayer::play(Sounds::ID sound)
@@ -34,6 +37,7 @@ void SoundPlayer::play(Sounds::ID effect, sf::Vector2f position)
     sound.setPosition(position.x, position.y, 0.f);
     sound.setAttenuation(Attenuation);
     sound.setMinDistance(MinDistance3D);
+    sound.setVolume(50);
     // pitch ?
 
     sound.play();

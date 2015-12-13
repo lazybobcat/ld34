@@ -27,12 +27,16 @@ void UiBonus::activate()
 }
 
 
-void UiBonus::updateCurrent(sf::Time dt, CommandQueue &/*commands*/)
+void UiBonus::updateCurrent(sf::Time dt, CommandQueue &commands)
 {
     if(mBonusTimer > sf::Time::Zero)
     {
         mBonusTimer -= dt;
-        if(mBonusTimer < sf::Time::Zero) mBonusTimer = sf::Time::Zero;
+        if(mBonusTimer < sf::Time::Zero)
+        {
+            playLocalSound(commands, Sounds::BonusEnds);
+            mBonusTimer = sf::Time::Zero;
+        }
         if(mBonusTimer.asSeconds() < 3.f)
         {
             mBackground.setColor(sf::Color(255,255,255, (int)(255 * ((int)(100*mBonusTimer.asSeconds()) % 100) / 100.f)));

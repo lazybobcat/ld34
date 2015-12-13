@@ -13,7 +13,7 @@ ParticleNode::ParticleNode(Particle::Type type, const TextureHolder &textures) :
     SceneNode(Category::ParticleSystem),
     mParticles(),
     mAffectors(),
-    mTexture(textures.get(Textures::Particle)),
+    mTexture(textures.get(type == Particle::Trail ? Textures::Trail : Textures::Particle)),
     mType(type),
     mVertexArray(sf::Quads),
     mNeedsVertexUpdate(false)
@@ -29,7 +29,7 @@ void ParticleNode::addParticle(sf::Vector2f position, int direction)
     p.lifetime  = Table[mType].lifetime;
     if(direction == -1)
     {
-        p.direction = randomInt(0, 360);
+        p.direction = randomInt(mType == Particle::Trail ? 115 : 0, mType == Particle::Trail ? 245 : 360);
     }
     else
     {

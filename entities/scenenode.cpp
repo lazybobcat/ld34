@@ -1,4 +1,5 @@
 #include <entities/scenenode.hpp>
+#include <entities/soundnode.hpp>
 #include <utils.hpp>
 
 ////////////////////////////////////////////////////////////
@@ -158,6 +159,15 @@ void SceneNode::checkNodeCollision(SceneNode &node, std::set<Pair> &collisionPai
     for(Ptr& child : mChildren)
         child->checkNodeCollision(node, collisionPairs);
 
+}
+
+void SceneNode::playLocalSound(CommandQueue &commands, Sounds::ID sound)
+{
+    Command command;
+    command.category = Category::SoundEffect;
+    command.action = derivedAction<SoundNode>(std::bind(&SoundNode::playSound, std::placeholders::_1, sound, getWorldPosition()));
+
+    commands.push(command);
 }
 
 void SceneNode::onCommand(const Command &command, sf::Time dt)

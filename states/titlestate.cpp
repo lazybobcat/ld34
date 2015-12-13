@@ -25,6 +25,13 @@ TitleState::TitleState(StateStack &stack, Context context) :
     mTrail.setTexture(context.textures->get(Textures::UiBonus));
     mTrail.setOrigin(sf::Vector2f(mTrail.getLocalBounds().width, mTrail.getLocalBounds().height/2));
     mTrail.setPosition(sf::Vector2f(-50.f - mShip.getLocalBounds().width / 2, context.window->getView().getSize().y / 2.f));
+
+    mLogo.setTexture(context.textures->get(Textures::Logo));
+    mLogo.setPosition(sf::Vector2f(100, context.window->getSize().y - 100));
+    mLogoText.setFont(context.fonts->get(Fonts::Monstruosor));
+    mLogoText.setString("Made by Loic Boutter - in C++ with SFML");
+    mLogoText.setCharacterSize(30);
+    mLogoText.setPosition(sf::Vector2f(context.window->getSize().x - 500, context.window->getSize().y - 90));
 }
 
 
@@ -41,6 +48,8 @@ void TitleState::draw()
         mSceneTexture.draw(mTrail);
         mSceneTexture.draw(mShip);
         mSceneTexture.draw(mTitle);
+        mSceneTexture.draw(mLogo);
+        mSceneTexture.draw(mLogoText);
         mSceneTexture.display();
         mBloomEffect.apply(mSceneTexture, window);
     }
@@ -50,6 +59,8 @@ void TitleState::draw()
         window.draw(mTrail);
         window.draw(mShip);
         window.draw(mTitle);
+        window.draw(mLogo);
+        window.draw(mLogoText);
     }
 }
 
@@ -61,6 +72,8 @@ bool TitleState::update(sf::Time dt)
     static float v = (1280.f + 100.f) / titleStateDuration;
 
     mTitle.setColor(sf::Color(255,255,255, a));
+    mLogo.setColor(sf::Color(255,255,255, a));
+    mLogoText.setColor(sf::Color(255,255,255, a));
     mShip.move(sf::Vector2f(v * dt.asSeconds(), 0));
     mTrail.move(sf::Vector2f(v * dt.asSeconds(), 0));
 
@@ -68,6 +81,7 @@ bool TitleState::update(sf::Time dt)
     {
         requestStackPop();
         requestStackPush(States::Game);
+        requestStackPush(States::Howto);
     }
 
     return true;
@@ -75,11 +89,12 @@ bool TitleState::update(sf::Time dt)
 
 bool TitleState::handleEvent(const sf::Event& event)
 {
-    if(event.type == sf::Event::KeyPressed)
+    /*if(event.type == sf::Event::KeyPressed)
     {
         requestStackPop();
         requestStackPush(States::Game);
-    }
+        requestStackPush(States::Howto);
+    }*/
 
     return false;
 }

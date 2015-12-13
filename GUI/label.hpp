@@ -21,6 +21,8 @@ public:
 
     virtual bool        isSelectable() const;
     void                setText(const std::string& text);
+    void                setCharSize(int size);
+    sf::FloatRect       getBoundingRect() const { return mText.getGlobalBounds(); }
 
     virtual void        handleEvent(const sf::Event &event);
 

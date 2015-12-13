@@ -17,6 +17,11 @@ Player::Player(TextureHolder &textures) :
     mEmitter = particles.get();
     attachChild(std::move(particles));
 
+    std::unique_ptr<EmitterNode> particles2(new EmitterNode(Particle::Trail));
+    particles2->setPosition(0, mDefaultSprite.getGlobalBounds().height / 2);
+    mTrailEmitter = particles2.get();
+    attachChild(std::move(particles2));
+
     std::unique_ptr<SpriteNode> trail(new SpriteNode(textures.get(Textures::UiBonus)));
     trail->setOrigin(sf::Vector2f(115.f, 14.f));
     trail->setPosition(sf::Vector2f(0, mDefaultSprite.getGlobalBounds().height / 2));
@@ -40,6 +45,7 @@ void Player::destroy()
     if(!isDestroyed())
     {
         if(mEmitter) mEmitter->emitExposionParticles();
+        if(mTrailEmitter) detachChild(*mTrailEmitter);
         if(mTrail)
         {
             detachChild(*mTrail);
@@ -94,11 +100,11 @@ void Player::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) cons
             break;
     }
 
-    sf::FloatRect bound(shipCollisionRect);
+    /*sf::FloatRect bound(shipCollisionRect);
     sf::RectangleShape shape(sf::Vector2f(bound.width, bound.height));
     shape.setOutlineColor(sf::Color::Red);
     shape.setOutlineThickness(1.f);
     shape.setFillColor(sf::Color(255,255,255, 0));
     shape.setPosition(bound.left, bound.top);
-    target.draw(shape, states);
+    target.draw(shape, states);*/
 }

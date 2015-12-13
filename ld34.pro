@@ -52,7 +52,10 @@ SOURCES += main.cpp \
     entities/uiscore.cpp \
     entities/uibonus.cpp \
     entities/doortrigger.cpp \
-    states/pausestate.cpp
+    states/pausestate.cpp \
+    states/highscoresstate.cpp \
+    json/jsoncpp.cpp \
+    states/howtostate.cpp
 
 OTHER_FILES +=
 
@@ -100,7 +103,11 @@ HEADERS += \
     entities/uiscore.hpp \
     entities/uibonus.hpp \
     entities/doortrigger.hpp \
-    states/pausestate.hpp
+    states/pausestate.hpp \
+    states/highscoresstate.hpp \
+    json/json/json.h \
+    json/json/json-forwards.h \
+    states/howtostate.hpp
 
 include(deployment.pri)
 qtcAddDeployment()

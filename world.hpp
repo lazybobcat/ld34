@@ -34,6 +34,10 @@ public:
 
     CommandQueue&   getCommandQueue();
 
+    void        grantPoints(unsigned int points);
+    Player*     getPlayerEntity() { return mPlayerEntity; }
+    unsigned int getScore() { return mPoints; }
+
 private:
     void        loadTextures();
     void        buildScene();

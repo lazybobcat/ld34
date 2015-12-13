@@ -20,8 +20,6 @@ public:
     int         getHealthpoints() const;
     bool        isDestroyed() const;
 
-    void        playLocalSound(CommandQueue& commands, Sounds::ID sound);
-
 protected:
     virtual void    updateCurrent(sf::Time, CommandQueue&);
 

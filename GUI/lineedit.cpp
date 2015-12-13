@@ -19,9 +19,26 @@ LineEdit::LineEdit(FontHolder& fonts, const std::string& text) :
     mShape.setOutlineColor(sf::Color(255,255,255, 130));
 }
 
+void LineEdit::setOnLostFocus(Callback callback)
+{
+    mCallback = std::move(callback);
+}
+
 bool LineEdit::isSelectable() const
 {
     return true;
+}
+
+void LineEdit::select()
+{
+    Widget::select();
+    activate();
+}
+
+void LineEdit::deselect()
+{
+    Widget::deselect();
+    deactivate();
 }
 
 void LineEdit::activate()
@@ -43,9 +60,10 @@ void LineEdit::deactivate()
     {
         mString.erase(mCursorPosition, mCursorPosition+1);
         mText.setString(mString);
+        Widget::deactivate();
+        mCallback();
     }
 
-    Widget::deactivate();
 }
 
 void LineEdit::handleEvent(const sf::Event &event)
@@ -59,7 +77,7 @@ void LineEdit::handleEvent(const sf::Event &event)
             switch(event.key.code)
             {
                 case sf::Keyboard::Tab:
-                    deactivate();
+                    deselect();
                     break;
 
                 case sf::Keyboard::Left:
@@ -77,13 +95,13 @@ void LineEdit::handleEvent(const sf::Event &event)
 
         case sf::Event::TextEntered:
             if(event.text.unicode == '\e') {
-                deactivate();
+                deselect();
             }
             else if(event.text.unicode == 13) {
-                deactivate();
+                deselect();
             }
             else if(event.text.unicode == '\t') {
-                deactivate();
+                deselect();
             } else if(event.text.unicode == '\b') {
                 backspace();
             } else {

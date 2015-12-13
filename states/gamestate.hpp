@@ -4,6 +4,10 @@
 #include <states/state.hpp>
 #include <world.hpp>
 #include <controllers/playercontroller.hpp>
+#include <GUI/container.hpp>
+#include <GUI/button.hpp>
+#include <GUI/label.hpp>
+#include <GUI/lineedit.hpp>
 
 class GameState : public State
 {
@@ -14,12 +18,23 @@ public:
     virtual bool update(sf::Time dt);
     virtual bool handleEvent(const sf::Event &event);
 
-private:
-    PlayerController& mPlayer;
-    World             mWorld;
+    void    sendScoreOnline();
+    void    retry();
+    void    displayHighscores();
 
-    bool              mIsGameOver;
-    sf::Time          mGameOverTimer;
+private:
+    PlayerController&   mPlayer;
+    World               mWorld;
+
+    bool                mIsGameOver;
+    sf::Time            mGameOverTimer;
+
+    // Game over UI
+    bool                mShowGameOverGUI;
+    sf::Sprite          mContainerBackground;
+    GUI::Container      mContainer;
+    GUI::Label*         mScoreLabel;
+    GUI::LineEdit*      mNickname;
 };
 
 #endif // GAMESTATE_HPP

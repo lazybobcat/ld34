@@ -14,9 +14,16 @@ namespace GUI
 class LineEdit: public Widget
 {
 public:
+    typedef std::shared_ptr<LineEdit> Ptr;
+    typedef std::function<void()>   Callback;
+
+public:
     LineEdit(FontHolder& fonts, const std::string& text = "");
 
+    void            setOnLostFocus(Callback callback);
     virtual bool    isSelectable() const;
+    virtual void    select();
+    virtual void    deselect();
     virtual void    activate();
     virtual void    deactivate();
     virtual void    handleEvent(const sf::Event &event);
@@ -40,6 +47,7 @@ private:
     void            adaptTextToBox();
 
 private:
+    Callback            mCallback;
     std::string         mString;
     sf::Text            mText;
     sf::RectangleShape  mShape;

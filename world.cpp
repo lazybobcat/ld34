@@ -97,6 +97,17 @@ void World::buildScene()
     });
     mSceneLayers[Foreground]->attachChild(std::move(pnode));
 
+    std::unique_ptr<ParticleNode> pnode2(new ParticleNode(Particle::Trail, mTextures));
+    pnode2->addAffector([](Particle &p, sf::Time dt) {
+        int a = (int)(255 * p.lifetime.asSeconds() / 0.7f);
+        p.color = sf::Color(255,255,255, a);
+    });
+    pnode2->addAffector([](Particle &p, sf::Time dt) {
+        p.position.x += 300.f * std::cos(p.direction * 2 * 3.1416f / 360.f) * dt.asSeconds();
+        p.position.y += 300.f * std::sin(p.direction * 2 * 3.1416f / 360.f) * dt.asSeconds();
+    });
+    mSceneLayers[Foreground]->attachChild(std::move(pnode2));
+
     // DoorTrigger
     std::unique_ptr<DoorTrigger> trigger(new DoorTrigger());
     trigger->setPosition(-50.f, 0);
@@ -205,6 +216,7 @@ void World::handleCollisions()
             auto& wall = static_cast<Wall&>(*pair.second);
 
             player.destroy();
+            mSounds.play(Sounds::Explosion);
         }
         else if(matchesCategories(pair, Category::DoorTrigger, Category::Wall))
         {
@@ -215,7 +227,7 @@ void World::handleCollisions()
             {
                 ignoreNextWall = true;
                 spawnDoor();
-                mPoints += pointsForCrate(mBonus->isActive());
+                grantPoints(pointsForCrate(mBonus->isActive()));
             }
         }
         else if(matchesCategories(pair, Category::Player, Category::Crate))
@@ -225,9 +237,9 @@ void World::handleCollisions()
 
             crate.destroy();
 
-            // play sound
+            mSounds.play(Sounds::Pickup);
 
-            mPoints += pointsForCrate(mBonus->isActive());
+            grantPoints(pointsForCrate(mBonus->isActive()));
             mBonus->activate();
         }
     }
@@ -252,12 +264,22 @@ void World::draw()
 
 }
 
+void World::grantPoints(unsigned int points)
+{
+    unsigned int m1 = mPoints % 1000;
+    mPoints += points;
+    unsigned int m2 = mPoints % 1000;
+
+    if(m1 > m2)
+    {
+        mSounds.play(Sounds::Points);
+    }
+}
+
 CommandQueue& World::getCommandQueue()
 {
     return mCommandQueue;
 }
-
-#include <iostream>
 
 void World::spawnDoor()
 {

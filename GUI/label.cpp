@@ -26,3 +26,8 @@ void Label::setText(const std::string &text)
 {
     mText.setString(text);
 }
+
+void Label::setCharSize(int size)
+{
+    mText.setCharacterSize(size);
+}
