@@ -9,11 +9,39 @@ EmitterNode::EmitterNode(Particle::Type type) :
 {
 }
 
+
+void EmitterNode::emitCrateParticles()
+{
+    if(mParticleSystem == nullptr)    return;
+
+    int nb_particles = 8;
+    int angle = 360 / nb_particles;
+
+    for(int i = 0; i < nb_particles; ++i)
+    {
+        mParticleSystem->addParticle(getWorldPosition(), i * angle);
+    }
+}
+
+void EmitterNode::emitExposionParticles()
+{
+    if(mParticleSystem == nullptr)    return;
+
+    int nb_particles = 36;
+    int angle = 360 / nb_particles;
+
+    for(int i = 0; i < nb_particles; ++i)
+    {
+        mParticleSystem->addParticle(getWorldPosition(), i * angle);
+    }
+}
+
+
 void EmitterNode::updateCurrent(sf::Time dt, CommandQueue &commands)
 {
     if(mParticleSystem)
     {
-        emitParticles(dt);
+        // emitParticles(dt);
     }
     else
     {

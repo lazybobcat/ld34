@@ -3,9 +3,16 @@
 Crate::Crate(TextureHolder &textures, float &speed) :
     Entity(100),
     mSpeed(speed),
-    mSprite(textures.get(Textures::Crate))
+    mSprite(textures.get(Textures::Crate)),
+    mEmitter(nullptr)
 {
-    setOrigin(mSprite.getGlobalBounds().width / 2.f, mSprite.getGlobalBounds().height / 2.f);
+    sf::Vector2f origin(mSprite.getGlobalBounds().width / 2.f, mSprite.getGlobalBounds().height / 2.f);
+    setOrigin(origin);
+
+    std::unique_ptr<EmitterNode> particles(new EmitterNode(Particle::Default));
+    particles->setPosition(origin);
+    mEmitter = particles.get();
+    attachChild(std::move(particles));
 }
 
 sf::FloatRect Crate::getBoundingRect() const
@@ -23,7 +30,7 @@ void Crate::updateCurrent(sf::Time dt, CommandQueue &commands)
 
 void Crate::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const
 {
-    target.draw(mSprite, states);
+    if(!isDestroyed()) target.draw(mSprite, states);
 
     /*sf::FloatRect bound(mSprite.getGlobalBounds());
     sf::RectangleShape shape(sf::Vector2f(bound.width, bound.height));
@@ -34,7 +41,14 @@ void Crate::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const
     target.draw(shape, states);*/
 }
 
+void Crate::destroy()
+{
+    if(!isDestroyed()) mEmitter->emitCrateParticles();
+
+    Entity::destroy();
+}
+
 bool Crate::isMarkedForRemoval() const
 {
-    return getPosition().x < (0.f - mSprite.getGlobalBounds().width);
+    return getPosition().x < (-(1.6f * mSpeed));
 }

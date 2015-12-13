@@ -6,7 +6,7 @@ MusicPlayer::MusicPlayer() :
     mVolume(100.f)
 {
     // Fill mFilenames table here :
-    // mFilenames[Musics::myMusic] = "my_file.ogg";
+    mFilenames[Musics::MainTheme] = "assets/musics/main_theme.ogg";
 }
 
 void MusicPlayer::play(Musics::ID song)
@@ -38,4 +38,9 @@ void MusicPlayer::pause(bool flag)
         mMusic.pause();
     else
         mMusic.play();
+}
+
+void MusicPlayer::setLoop(bool flag)
+{
+    mMusic.setLoop(flag);
 }

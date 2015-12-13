@@ -4,15 +4,15 @@
 
 using namespace GUI;
 
-Button::Button(const FontHolder &fonts, const TextureHolder &/*textures*/) :
+Button::Button(const FontHolder &fonts, const TextureHolder &textures) :
     mCallback(),
-    //mButtonTexture(),
+    mButtonTexture(textures.get(Textures::UiButton)),
     mSprite(),
-    mText("", fonts.get(Fonts::Main), 16),
+    mText("", fonts.get(Fonts::Main), 22),
     mIsToggled(false)
 {
-    sf::IntRect textureRect(0, 0, 200, 50);
-    //mSprite.setTexture(mButtonTexture);
+    sf::IntRect textureRect(0, 0, 500, 50);
+    mSprite.setTexture(mButtonTexture);
     mSprite.setTextureRect(textureRect);
 
     sf::FloatRect bounds = mSprite.getLocalBounds();
@@ -44,21 +44,21 @@ void Button::select()
 {
     Widget::select();
 
-    mSprite.setTextureRect(sf::IntRect(0, 50, 200, 50));
+    mSprite.setTextureRect(sf::IntRect(0, 50, 500, 50));
 }
 
 void Button::deselect()
 {
     Widget::deselect();
 
-    mSprite.setTextureRect(sf::IntRect(0, 0, 200, 50));
+    mSprite.setTextureRect(sf::IntRect(0, 0, 500, 50));
 }
 
 void Button::activate()
 {
     Widget::activate();
     if(mIsToggled)
-        mSprite.setTextureRect(sf::IntRect(0, 100, 200, 50));
+        mSprite.setTextureRect(sf::IntRect(0, 50, 500, 50));
 
     if(mCallback)
         mCallback();
@@ -74,9 +74,9 @@ void Button::deactivate()
     if(mIsToggled)
     {
         if(isSelected())
-            mSprite.setTextureRect(sf::IntRect(0, 50, 200, 50));
+            mSprite.setTextureRect(sf::IntRect(0, 50, 500, 50));
         else
-            mSprite.setTextureRect(sf::IntRect(0, 0, 200, 50));
+            mSprite.setTextureRect(sf::IntRect(0, 0, 500, 50));
     }
 }
 

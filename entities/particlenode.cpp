@@ -1,5 +1,6 @@
 #include <entities/particlenode.hpp>
 #include <datatables.hpp>
+#include <utils.hpp>
 
 #include <iostream>
 
@@ -20,12 +21,20 @@ ParticleNode::ParticleNode(Particle::Type type, const TextureHolder &textures) :
 }
 
 
-void ParticleNode::addParticle(sf::Vector2f position)
+void ParticleNode::addParticle(sf::Vector2f position, int direction)
 {
     Particle p;
     p.position  = position;
     p.color     = Table[mType].color;
     p.lifetime  = Table[mType].lifetime;
+    if(direction == -1)
+    {
+        p.direction = randomInt(0, 360);
+    }
+    else
+    {
+        p.direction = direction;
+    }
 
     mParticles.push_back(p);
 }

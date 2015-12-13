@@ -10,12 +10,14 @@ struct Particle
     enum Type
     {
         Default,
+        Trail,
         ParticleCount
     };
 
     sf::Vector2f    position;
     sf::Color       color;
     sf::Time        lifetime;
+    float           direction;
 };
 
 #endif // PARTICLE_H

@@ -2,6 +2,7 @@
 #define CRATE_HPP
 
 #include <entities/entity.hpp>
+#include <entities/emitternode.hpp>
 
 class Crate : public Entity
 {
@@ -15,6 +16,7 @@ public:
     virtual sf::FloatRect   getBoundingRect() const;
     virtual unsigned int    getCategory() const { return Category::Crate; }
 
+    virtual void destroy();
     virtual bool isMarkedForRemoval() const;
 
 protected:
@@ -26,6 +28,7 @@ private:
 
     sf::Sprite      mSprite;
 
+    EmitterNode*    mEmitter;
 };
 
 #endif // CRATE_HPP

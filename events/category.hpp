@@ -12,6 +12,7 @@ namespace Category
         Crate           = 1 << 3,
         Wall            = 1 << 4,
         PointCounter    = 1 << 5,
+        DoorTrigger     = 1 << 6,
         // ...
         //MixedCategory        = Category1 | Category2,
 

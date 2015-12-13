@@ -19,7 +19,7 @@ public:
     typedef std::function<void()>   Callback;
 
 public:
-    Button(const FontHolder& fonts, const TextureHolder&);
+    Button(const FontHolder& fonts, const TextureHolder& textures);
 
     void            setCallback(Callback callback);
     void            setText(const std::string& text);
@@ -39,7 +39,7 @@ private:
 
 private:
     Callback            mCallback;
-    //const sf::Texture&  mButtonTexture;
+    const sf::Texture&  mButtonTexture;
     sf::Sprite          mSprite;
     sf::Text            mText;
     bool                mIsToggled;

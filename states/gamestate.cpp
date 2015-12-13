@@ -6,9 +6,9 @@ GameState::GameState(StateStack &stack, Context context) :
     mWorld(*context.window, *context.textures, *context.fonts, *context.music, *context.sounds, *context.scripts, mPlayer),
     mIsGameOver(false)
 {
-    //context.music->play(Musics::MainThemeMusical);
-    //context.music->setLoop(true);
-    //context.music->setVolume(10.f);
+    context.music->play(Musics::MainTheme);
+    context.music->setLoop(true);
+    context.music->setVolume(10.f);
 }
 
 

@@ -28,9 +28,11 @@ namespace Textures
         Ship,
         Trail,
         UiBonus,
+        UiButton,
         UiHighscore,
         UiNext,
         UiScore,
+        UiScreen,
         Wall
     };
 }
@@ -69,7 +71,7 @@ namespace Musics
 {
     enum ID
     {
-
+        MainTheme
     };
 }
 

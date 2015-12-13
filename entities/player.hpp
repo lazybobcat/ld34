@@ -2,6 +2,8 @@
 #define PLAYER_HPP
 
 #include <entities/entity.hpp>
+#include <entities/emitternode.hpp>
+#include <entities/spritenode.hpp>
 
 class Player : public Entity
 {
@@ -24,6 +26,7 @@ public:
     virtual sf::FloatRect   getBoundingRect() const;
     virtual unsigned int    getCategory() const { return Category::Player; }
 
+    virtual void destroy();
     virtual bool isMarkedForRemoval() const { return false; }
 
 protected:
@@ -37,6 +40,9 @@ private:
     sf::Sprite      mDefaultSprite;
     sf::Sprite      mDownSprite;
     sf::Sprite      mUpSprite;
+
+    EmitterNode*    mEmitter;
+    SpriteNode*     mTrail;
 };
 
 #endif // PLAYER_HPP

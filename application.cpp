@@ -2,6 +2,7 @@
 #include <utils.hpp>
 #include <states/titlestate.hpp>
 #include <states/gamestate.hpp>
+#include <states/pausestate.hpp>
 
 const sf::Time Application::TimePerFrame = sf::seconds(1.f/60.f);
 
@@ -29,9 +30,11 @@ Application::Application(unsigned int width, unsigned int height, const std::str
     mTextures.load(Textures::Ship, "assets/textures/ship.png");
     mTextures.load(Textures::Trail, "assets/textures/trail.png");
     mTextures.load(Textures::UiBonus, "assets/textures/ui-bonus.png");
+    mTextures.load(Textures::UiButton, "assets/textures/ui-button.png");
     mTextures.load(Textures::UiHighscore, "assets/textures/ui-highscores.png");
     mTextures.load(Textures::UiNext, "assets/textures/ui-next.png");
     mTextures.load(Textures::UiScore, "assets/textures/ui-score.png");
+    mTextures.load(Textures::UiScreen, "assets/textures/ui-screen.png");
     mTextures.load(Textures::Wall, "assets/textures/wall.png");
     //mScripts.registerFile(Scripts::HelloWorld, "assets/scripts/helloworld.lua");
 
@@ -100,8 +103,8 @@ void Application::registerStates()
 {
     mStateStack.registerState<TitleState>(States::Title);
     mStateStack.registerState<GameState>(States::Game);
-    /*mStateStack.registerState<MenuState>(States::Menu);
     mStateStack.registerState<PauseState>(States::Pause);
+    /*mStateStack.registerState<MenuState>(States::Menu);
     mStateStack.registerState<LoadingState>(States::Loading);
     mStateStack.registerState<GameOverState>(States::GameOver);*/
 }

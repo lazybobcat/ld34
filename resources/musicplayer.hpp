@@ -19,6 +19,7 @@ public:
     void        stop();
     void        pause(bool flag = true);
     void        setVolume(float volume);
+    void        setLoop(bool flag = true);
 
 private:
     sf::Music   mMusic;

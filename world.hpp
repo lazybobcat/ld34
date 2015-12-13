@@ -19,6 +19,10 @@
 #include <entities/player.hpp>
 #include <entities/wall.hpp>
 #include <entities/crate.hpp>
+#include <entities/particlenode.hpp>
+#include <entities/uiscore.hpp>
+#include <entities/uibonus.hpp>
+#include <entities/doortrigger.hpp>
 
 class World : public sf::NonCopyable
 {
@@ -34,6 +38,8 @@ private:
     void        loadTextures();
     void        buildScene();
     void        handleCollisions();
+
+    void        spawnDoor();
 
 private:
     enum Layer
@@ -55,6 +61,7 @@ private:
     ScriptPlayer&                       mScripts;
     PlayerController&                   mPlayer;
     Player*                             mPlayerEntity;
+    UiBonus*                            mBonus;
     BloomEffect                         mBloomEffect;
 
     SceneNode                           mSceneGraph;
@@ -62,6 +69,7 @@ private:
     CommandQueue                        mCommandQueue;
 
     float                               mSpeed;
+    unsigned int                        mPoints;
 };
 
 #endif // WORLD_H

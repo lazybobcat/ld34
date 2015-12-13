@@ -12,6 +12,9 @@ class EmitterNode : public SceneNode
 public:
     explicit EmitterNode(Particle::Type type);
 
+    void    emitCrateParticles();
+    void    emitExposionParticles();
+
 private:
     virtual void    updateCurrent(sf::Time dt, CommandQueue &commands);
 

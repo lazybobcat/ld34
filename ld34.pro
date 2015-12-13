@@ -48,7 +48,11 @@ SOURCES += main.cpp \
     states/gamestate.cpp \
     entities/player.cpp \
     entities/wall.cpp \
-    entities/crate.cpp
+    entities/crate.cpp \
+    entities/uiscore.cpp \
+    entities/uibonus.cpp \
+    entities/doortrigger.cpp \
+    states/pausestate.cpp
 
 OTHER_FILES +=
 
@@ -92,7 +96,11 @@ HEADERS += \
     states/gamestate.hpp \
     entities/player.hpp \
     entities/wall.hpp \
-    entities/crate.hpp
+    entities/crate.hpp \
+    entities/uiscore.hpp \
+    entities/uibonus.hpp \
+    entities/doortrigger.hpp \
+    states/pausestate.hpp
 
 include(deployment.pri)
 qtcAddDeployment()
